@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mpmusc
+    username: testValue
+    password: testValue
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+aws:
+  accessKey: testValue
+  secretKey: testValue
+  lambda:
+    functionName: testValue
+  region: testValue
+  estimatedCost: 10.0
+  concurrency: 5
+
+
+azure:
+  function:
+    url:  https://testValue
+  region: testValue
+  estimatedCost: 10.0
+  concurrency: 5
+
+openwhisk:
+  action: testValue
+  api:
+    host: https://localhost:31001
+    key: testValue
+  namespace: whisk.system
+  region: testValue
+  estimatedCost: 10.0
+  concurrency: 5
+
+  
