@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mpmusc</groupId>
+        <artifactId>mpmusc-root</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>azure-function</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mpmusc</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure.functions</groupId>
+            <artifactId>azure-functions-java-library</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-functions-maven-plugin</artifactId>
+                <version>1.38.0</version>
+                <executions>
+                    <execution>
+                        <id>azure-functions-package</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <resourceGroup>mpmusc-resources</resourceGroup>
+                    <appName>mpmusc-azure-sin</appName>
+                    <region>southeastasia</region>
+                    <!--                    <appName>mpmusc-azure-aus</appName>-->
+                    <!--                    <region>australiaeast</region>-->
+
+                    <!--                    <appName>mpmusc-azure-canada</appName>-->
+                    <!--                    <region>canadacentral</region>-->
+                    <pricingTier>Consumption</pricingTier>
+                    <instanceMemory>1536</instanceMemory>
+                    <runtime>
+                        <os>linux</os>
+                        <javaVersion>Java 8</javaVersion>
+                    </runtime>
+                    <appSettings>
+                        <property>
+<!--                            This ensures 1 worker per instance, so only 1 request per container-->
+                            <name>FUNCTIONS_WORKER_PROCESS_COUNT</name>
+                            <value>1</value>
+                        </property>
+                        <property>
+                            <name>FUNCTIONS_WORKER_SHARED_MEMORY_DATA_TRANSFER_ENABLED</name>
+                            <value>false</value>
+                        </property>
+                        <property>
+                            <name>AzureFunctionsJobHost__extensions__http__maxConcurrentRequests</name>
+                            <value>1</value>
+                        </property>
+<!--                        <property>-->
+<!--                            <name>AzureFunctionsJobHost__extensions__http__maxOutstandingRequests</name>-->
+<!--                            <value>1</value>-->
+<!--                        </property>-->
+                        <property>
+<!--               This lets your function app scale out to 5 instances             -->
+                            <name>WEBSITE_MAX_DYNAMIC_APPLICATION_SCALE_OUT</name>
+                            <value>5</value>
+                        </property>
+                        <property>
+                            <name>FUNCTIONS_WORKER_RUNTIME</name>
+                            <value>java</value>
+                        </property>
+                        <!--                        <property>-->
+                        <!--                            <name>JAVA_OPTS</name>-->
+                        <!--                            <value>-Xmx1400m</value>-->
+                        <!--                        </property>-->
+                    </appSettings>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version> <!-- or any modern version -->
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>com.microsoft.azure</groupId>-->
+    <!--                <artifactId>azure-functions-maven-plugin</artifactId>-->
+    <!--                <version>1.13.0</version>-->
+    <!--                <configuration>-->
+    <!--                    <resourceGroup>mpmusc-resources</resourceGroup>-->
+    <!--                    <appName>mpmusc-azure</appName>-->
+    <!--                    <region>Southeast Asia</region>-->
+    <!--                    <runtime>-->
+    <!--                        <os>windows</os>-->
+    <!--                        <javaVersion>Java 11</javaVersion>-->
+    <!--                    </runtime>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
+</project>
