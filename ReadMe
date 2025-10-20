@@ -1,0 +1,2 @@
+From the mpmusc-root folder:
+mvn clean install
